@@ -23,7 +23,6 @@ export default class HelloWorld extends Vue {
   private timeoutId: any = 0;
   private cities: Array<City> = [];
   private results: number|undefined = -1;
-  private items: Array<any> = [{ message: "Foo" }, { message: "Bar" }];
 
   autocomplete() {    
     if(this.searchValue==''){
@@ -31,12 +30,10 @@ export default class HelloWorld extends Vue {
       this.results=undefined;
       return
     }
-    //delete previous timeout
+    //delete previous timeout - for debounce
     if(this.timeoutId)clearTimeout(this.timeoutId);
     this.timeoutId = setTimeout(() => {
-      console.log("in setTimeout ");
       console.log(this.searchValue);
-
       fetch(
         "http://api.geonames.org/searchJSON?q=" +
           this.searchValue +
